@@ -1,38 +1,28 @@
 import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class Rectangle extends Shape {
     /***
      * upperleft corner of the rectangle
      */
-    public int x,y;
+    public double x,y;
 
     /**
      * the rectangle's width and height.
      */
-    public int width,height;
+    public double width,height;
 
     /***
      * Creates a new rectangle with the 0,0 coordinate as its upper-left corner.
      * @param width the amount the rectangle extends along the x-axis relative to the upper-left corner
      * @param height the amount the rectangle extends along the y-axis relative to the upper-left corner
      */
-    public Rectangle(int width, int height){
+    public Rectangle(double width, double height){
+        super(0,0);
         this.width = width;
         this.height = height;
     }
 
-    /**
-     * Creates a rectangle with point p as its upper-left corner.
-     * @param p upper-left corner of the rectangle.
-     * @param width the amount the rectangle extends along the x-axis relative to the upper-left corner
-     * @param height the amount the rectangle extends along the y-axis relative to the upper-left corner
-     */
-    public Rectangle(Point p, int width, int height){
-        this.x = p.x;
-        this.y = p.y;
-        this.width = width;
-        this.height = height;
-    }
 
     /**
      * Creates a rectangle with x and y variables as its upper-left corner.
@@ -41,7 +31,8 @@ public class Rectangle extends Shape {
      * @param width the amount the rectangle extends along the x-axis relative to the upper-left corner
      * @param height the amount the rectangle extends along the y-axis relative to the upper-left corner
      */
-    public Rectangle(int x, int y, int width, int height){
+    public Rectangle(double x, double y, double width, double height){
+        super(0,0);
         this.x = x;
         this.y = y;
         this.width = width;
@@ -51,7 +42,9 @@ public class Rectangle extends Shape {
     /**
      * Creates a rectangle with 0 side length at the 0,0 coordinate.
      */
-    public Rectangle(){}
+    public Rectangle(){
+        super(0,0);
+    }
 
     @Override
     public double getArea() {
@@ -64,7 +57,7 @@ public class Rectangle extends Shape {
     }
 
     @Override
-    public void translate(int x, int y) {
+    public void translate(double x, double y) {
         this.x += x;
         this.y += y;
     }
@@ -73,6 +66,11 @@ public class Rectangle extends Shape {
     public void translate(Point p) {
         this.x += p.x;
         this.y += p.y;
+    }
+
+    @Override
+    public boolean containsPoint(Point2D point) {
+        return false;
     }
 
     public Point[] getCornerPoints(){

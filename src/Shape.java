@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-abstract class Shape <Integer>{
+abstract class Shape {
     private int id;
     public int getId() {
         return id;
@@ -9,11 +9,21 @@ abstract class Shape <Integer>{
     public void setId(int id) {
         this.id = id;
     }
-    public int centerX;
-    public int centerY;
 
-    protected Shape (){
+    public double getCenterX() {
+        return centerX;
+    }
 
+    public double getCenterY() {
+        return centerY;
+    }
+
+    private double centerX;
+    private double centerY;
+
+    protected Shape (double centerX, double centerY){
+        this.centerY = centerY;
+        this.centerX = centerX;
     }
 
     //TODO make these guys doubles.
@@ -25,7 +35,7 @@ abstract class Shape <Integer>{
      * @param x moving the shape along the x-axis
      * @param y moving the shape along the y-axis
      */
-    public abstract void translate(int x, int y);
+    public abstract void translate(double x, double y);
 
     /***
      * Translates the center of the shape according to the given point.
@@ -33,7 +43,8 @@ abstract class Shape <Integer>{
      */
     public abstract void translate(Point p);
 
-    public void scaleShape(int scalar){}
+    public void scaleShape(double scalar){
+    }
 
     public void rotate(int unitDegree){}
 
@@ -41,11 +52,7 @@ abstract class Shape <Integer>{
         return false;
     }
 
-    public int distanceTo(Shape shape1){return 0;}
+    public double distanceTo(Shape shape1){return Math.sqrt(Math.pow(shape1.centerX-centerX,2)+Math.pow(shape1.centerY-centerY,2));}
 
-    public boolean containsPoint (Point2D point) {
-        return false;
-    }
-
-
+    public abstract boolean containsPoint (Point2D point);
 }

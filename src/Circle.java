@@ -1,22 +1,26 @@
 import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class Circle extends Shape {
 
     /**
      * Coordinates of the circles center.
      */
-    public int x,y;
+    public double x;
+    public double y;
 
-    public int radius;
+    public double radius;
 
-    Circle(int radius) {
+    Circle(double radius) {
+        super(0,0);
         this.radius = radius;
     }
 
-    Circle(Point p, int radius){
+    Circle(double centerX,double centerY, int radius){
+        super(centerX,centerY);
         this.radius = radius;
-        this.x = p.x;
-        this.y = p.y;
+        this.x = centerX;
+        this.y = centerY;
     }
 
     @Override
@@ -30,7 +34,7 @@ public class Circle extends Shape {
     }
 
     @Override
-    public void translate(int x, int y) {
+    public void translate(double x, double y) {
         this.x += x;
         this.y += y;
     }
@@ -39,6 +43,11 @@ public class Circle extends Shape {
     public void translate(Point p) {
         this.x += p.x;
         this.y += p.y;
+    }
+
+    @Override
+    public boolean containsPoint(Point2D point) {
+        return false;
     }
 
     @Override

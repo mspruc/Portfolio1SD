@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class Triangle extends Shape{
 
@@ -6,20 +7,24 @@ public class Triangle extends Shape{
     public int y1,y2,y3;
 
     Triangle() {
+        super(0,0);
         int width = 0;
         int height = 0;
     }
 
     Triangle(Point p1, Point p2, Point p3){
+        super((p1.x+p2.x+p3.x)/3d,(p1.y+p2.y+p3.y)/3d);
         this.x1 = p1.x;
         this.y1 = p1.y;
         this.x2 = p2.x;
         this.y2 = p2.y;
         this.x3 = p3.x;
         this.y3 = p3.y;
+
     }
 
     Triangle(int x1, int y1, int x2, int y2, int x3, int y3){
+        super((x1+x2+x3)/3d,(y1+y2+y3)/3d);
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -38,12 +43,11 @@ public class Triangle extends Shape{
     public double getCircumference() {
         return Math.abs(Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2))) +
                 Math.abs(Math.sqrt(Math.pow(x3-x2,2)+Math.pow(y3-y2,2))) +
-                Math.abs(Math.sqrt(Math.pow(x3-x1,2)+Math.pow(y3-y1,2)))
-                ;
+                Math.abs(Math.sqrt(Math.pow(x3-x1,2)+Math.pow(y3-y1,2)));
     }
 
     @Override
-    public void translate(int x, int y) {
+    public void translate(double x, double y) {
         this.x1 += x;
         this.y1 += y;
         this.x2 += x;
@@ -63,6 +67,11 @@ public class Triangle extends Shape{
     }
 
     @Override
+    public boolean containsPoint(Point2D point) {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "Triangle{" +
                 "x1=" + x1 +
@@ -75,4 +84,6 @@ public class Triangle extends Shape{
                 ", circumference=" + getCircumference() +
                 '}';
     }
+
+
 }
