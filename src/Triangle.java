@@ -1,30 +1,31 @@
 import java.awt.Point;
-import java.awt.geom.Point2D;
 
 public class Triangle extends Shape{
 
-    public int x1,x2,x3;
-    public int y1,y2,y3;
+    private int x1,x2,x3;
+    private int y1,y2,y3;
 
+    /**
+     * Constructs a triangle at 0,0 with 0 side length.
+     */
     Triangle() {
         super(0,0);
         int width = 0;
         int height = 0;
     }
 
-    Triangle(Point p1, Point p2, Point p3){
-        super((p1.x+p2.x+p3.x)/3d,(p1.y+p2.y+p3.y)/3d);
-        this.x1 = p1.x;
-        this.y1 = p1.y;
-        this.x2 = p2.x;
-        this.y2 = p2.y;
-        this.x3 = p3.x;
-        this.y3 = p3.y;
-
-    }
+    /**
+     * Creates a triangle by 3 defined points.
+     * @param x1 x coordinate of the first point
+     * @param y1 y coordinate of the first point
+     * @param x2 x coordinate of the second point
+     * @param y2 y coordinate of the second point
+     * @param x3 x coordinate of the third point
+     * @param y3 y coordinate of the third point
+     */
 
     Triangle(int x1, int y1, int x2, int y2, int x3, int y3){
-        super((x1+x2+x3)/3d,(y1+y2+y3)/3d);
+        super(0,0);
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -35,8 +36,22 @@ public class Triangle extends Shape{
 
     @Override
     public double getArea() {
+        return areaCalc(this.x1,this.y1,this.x2,this.y2,this.x3,this.y3);
+    }
+
+    private double areaCalc(double x1, double y1, double x2, double y2, double x3, double y3){
         double divisor = 2;
         return Math.abs((x1*(y2-y3)+x2*(y3-y1)+x3*(y1-y2))/divisor);
+    }
+
+    @Override
+    public double getCenterX(){
+        return (x1+x2+x3)/3d;
+    }
+
+    @Override
+    public double getCenterY(){
+        return (y1+y2+y3)/3d;
     }
 
     @Override
@@ -48,6 +63,8 @@ public class Triangle extends Shape{
 
     @Override
     public void translate(double x, double y) {
+        super.setCenterX(getCenterX()+x);
+        super.setCenterY(getCenterY()+y);
         this.x1 += x;
         this.y1 += y;
         this.x2 += x;
@@ -57,18 +74,13 @@ public class Triangle extends Shape{
     }
 
     @Override
-    public void translate(Point p) {
-        this.x1 += p.x;
-        this.y1 += p.y;
-        this.x2 += p.x;
-        this.y2 += p.y;
-        this.x3 += p.x;
-        this.y3 += p.y;
-    }
+    public boolean containsPoint(double x, double y) {
+        double triangleArea = this.getArea();
+        double area1 = areaCalc(x,y,this.x2,this.y2,this.x3,this.y3);
+        double area2 = areaCalc(this.x1,this.y1,x,y,this.x3,this.y3);
+        double area3 = areaCalc(this.x1,this.y1,this.x2,this.y2,x,y);
 
-    @Override
-    public boolean containsPoint(Point2D point) {
-        return false;
+        return triangleArea == area1 + area2 + area3;
     }
 
     @Override
@@ -84,6 +96,4 @@ public class Triangle extends Shape{
                 ", circumference=" + getCircumference() +
                 '}';
     }
-
-
 }

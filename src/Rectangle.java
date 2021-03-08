@@ -1,11 +1,8 @@
-import java.awt.Point;
-import java.awt.geom.Point2D;
-
 public class Rectangle extends Shape {
     /***
      * upperleft corner of the rectangle
      */
-    public double x,y;
+    private double x,y;
 
     /**
      * the rectangle's width and height.
@@ -18,7 +15,7 @@ public class Rectangle extends Shape {
      * @param height the amount the rectangle extends along the y-axis relative to the upper-left corner
      */
     public Rectangle(double width, double height){
-        super(0,0);
+        super(width/2,height/2);
         this.width = width;
         this.height = height;
     }
@@ -32,7 +29,7 @@ public class Rectangle extends Shape {
      * @param height the amount the rectangle extends along the y-axis relative to the upper-left corner
      */
     public Rectangle(double x, double y, double width, double height){
-        super(0,0);
+        super(x+width/2,y+height/2);
         this.x = x;
         this.y = y;
         this.width = width;
@@ -58,23 +55,18 @@ public class Rectangle extends Shape {
 
     @Override
     public void translate(double x, double y) {
+        super.setCenterX(super.getCenterX()+x);
+        super.setCenterY(super.getCenterY()+y);
         this.x += x;
         this.y += y;
     }
 
     @Override
-    public void translate(Point p) {
-        this.x += p.x;
-        this.y += p.y;
+    public boolean containsPoint(double x, double y) {
+        return x > getCenterX() - width/2 && x < getCenterX() + width/2 && y > getCenterY() - height/2 && y < getCenterY() + height/2;
     }
 
-    @Override
-    public boolean containsPoint(Point2D point) {
-        return false;
-    }
-
-    public Point[] getCornerPoints(){
-        return null;
+    void getCornerPoints(){
     }
 
     @Override

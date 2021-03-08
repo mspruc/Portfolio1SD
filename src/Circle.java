@@ -1,6 +1,3 @@
-import java.awt.Point;
-import java.awt.geom.Point2D;
-
 public class Circle extends Shape {
 
     /**
@@ -16,6 +13,12 @@ public class Circle extends Shape {
         this.radius = radius;
     }
 
+    /**
+     *
+     * @param centerX
+     * @param centerY
+     * @param radius
+     */
     Circle(double centerX,double centerY, int radius){
         super(centerX,centerY);
         this.radius = radius;
@@ -35,19 +38,16 @@ public class Circle extends Shape {
 
     @Override
     public void translate(double x, double y) {
+        super.setCenterX(super.getCenterX()+x);
+        super.setCenterY(super.getCenterY()+y);
         this.x += x;
         this.y += y;
     }
 
-    @Override
-    public void translate(Point p) {
-        this.x += p.x;
-        this.y += p.y;
-    }
 
     @Override
-    public boolean containsPoint(Point2D point) {
-        return false;
+    public boolean containsPoint(double x, double y) {
+        return Math.pow(x - super.getCenterX(), 2) + Math.pow(y - super.getCenterY(), 2) < Math.pow(radius, 2);
     }
 
     @Override
