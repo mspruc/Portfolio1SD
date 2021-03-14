@@ -2,7 +2,7 @@ public class Rectangle extends Shape {
     /***
      * upperleft corner of the rectangle
      */
-    private double x,y;
+    public double x,y;
 
     /**
      * the rectangle's width and height.
@@ -15,7 +15,6 @@ public class Rectangle extends Shape {
      * @param height the amount the rectangle extends along the y-axis relative to the upper-left corner
      */
     public Rectangle(double width, double height){
-        super(width/2,height/2);
         this.width = width;
         this.height = height;
     }
@@ -29,18 +28,27 @@ public class Rectangle extends Shape {
      * @param height the amount the rectangle extends along the y-axis relative to the upper-left corner
      */
     public Rectangle(double x, double y, double width, double height){
-        super(x+width/2,y+height/2);
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
     }
 
+    @Override
+    public double calculateCenterX() {
+        return x+width/2;
+    }
+
+    @Override
+    public double calculateCenterY() {
+        return y+height/2;
+    }
+
     /**
      * Creates a rectangle with 0 side length at the 0,0 coordinate.
      */
     public Rectangle(){
-        super(0,0);
+
     }
 
     @Override
@@ -55,18 +63,24 @@ public class Rectangle extends Shape {
 
     @Override
     public void translate(double x, double y) {
-        super.setCenterX(super.getCenterX()+x);
-        super.setCenterY(super.getCenterY()+y);
         this.x += x;
         this.y += y;
     }
 
     @Override
-    public boolean containsPoint(double x, double y) {
-        return x > getCenterX() - width/2 && x < getCenterX() + width/2 && y > getCenterY() - height/2 && y < getCenterY() + height/2;
+    public void scaleShape(double scalar) {
+        width  *= scalar;
+        height *= scalar;
     }
 
-    void getCornerPoints(){
+    @Override
+    public boolean intersects(Shape shape1) {
+        return false;
+    }
+
+    @Override
+    public boolean containsPoint(double x, double y) {
+        return x > calculateCenterX() - width/2 && x < calculateCenterX() + width/2 && y > calculateCenterY() - height/2 && y < calculateCenterY() + height/2;
     }
 
     @Override

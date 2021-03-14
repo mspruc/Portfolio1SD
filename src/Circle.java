@@ -1,29 +1,33 @@
 public class Circle extends Shape {
-
-    /**
-     * Coordinates of the circles center.
-     */
     public double x;
     public double y;
 
     public double radius;
 
     Circle(double radius) {
-        super(0,0);
         this.radius = radius;
     }
 
     /**
-     *
-     * @param centerX
-     * @param centerY
-     * @param radius
+     * create a circle at a point with a radius
+     * @param centerX x coordinate of the circles center
+     * @param centerY y coordinate of the circles center
+     * @param radius radius of the circle
      */
     Circle(double centerX,double centerY, int radius){
-        super(centerX,centerY);
         this.radius = radius;
         this.x = centerX;
         this.y = centerY;
+    }
+
+    @Override
+    public double calculateCenterX() {
+        return x;
+    }
+
+    @Override
+    public double calculateCenterY() {
+        return y;
     }
 
     @Override
@@ -38,16 +42,24 @@ public class Circle extends Shape {
 
     @Override
     public void translate(double x, double y) {
-        super.setCenterX(super.getCenterX()+x);
-        super.setCenterY(super.getCenterY()+y);
         this.x += x;
         this.y += y;
+    }
+
+    @Override
+    public void scaleShape(double scalar) {
+
+    }
+
+    @Override
+    public boolean intersects(Shape shape1) {
+        return false;
     }
 
 
     @Override
     public boolean containsPoint(double x, double y) {
-        return Math.pow(x - super.getCenterX(), 2) + Math.pow(y - super.getCenterY(), 2) < Math.pow(radius, 2);
+        return Math.pow(x - calculateCenterX(), 2) + Math.pow(y - calculateCenterY(), 2) < Math.pow(radius, 2);
     }
 
     @Override

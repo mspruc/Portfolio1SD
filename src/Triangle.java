@@ -1,17 +1,15 @@
-import java.awt.Point;
-
 public class Triangle extends Shape{
-
-    private int x1,x2,x3;
-    private int y1,y2,y3;
+    public double x1;
+    public double x2;
+    public double x3;
+    public double y1;
+    public double y2;
+    public double y3;
 
     /**
      * Constructs a triangle at 0,0 with 0 side length.
      */
     Triangle() {
-        super(0,0);
-        int width = 0;
-        int height = 0;
     }
 
     /**
@@ -25,7 +23,6 @@ public class Triangle extends Shape{
      */
 
     Triangle(int x1, int y1, int x2, int y2, int x3, int y3){
-        super(0,0);
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -45,12 +42,12 @@ public class Triangle extends Shape{
     }
 
     @Override
-    public double getCenterX(){
+    public double calculateCenterX(){
         return (x1+x2+x3)/3d;
     }
 
     @Override
-    public double getCenterY(){
+    public double calculateCenterY(){
         return (y1+y2+y3)/3d;
     }
 
@@ -63,14 +60,51 @@ public class Triangle extends Shape{
 
     @Override
     public void translate(double x, double y) {
-        super.setCenterX(getCenterX()+x);
-        super.setCenterY(getCenterY()+y);
         this.x1 += x;
         this.y1 += y;
         this.x2 += x;
         this.y2 += y;
         this.x3 += x;
         this.y3 += y;
+    }
+
+    /**
+     * Scale triangle according to its center
+     * @param scalar the magnitude you want to scale the triangle by
+     */
+    @Override
+    public void scaleShape(double scalar) {
+        double[] p1 = scalePoint(scalar,x1,y1);
+        double[] p2 = scalePoint(scalar,x2,y2);
+        double[] p3 = scalePoint(scalar,x3,y3);
+
+        x1 = p1[0];
+        y1 = p1[1];
+        x2 = p2[0];
+        y2 = p2[1];
+        x3 = p3[0];
+        y3 = p3[1];
+    }
+
+    @Override
+    public boolean intersects(Shape shape1) {
+        return false;
+    }
+
+    private double[] scalePoint(double scalar, double x, double y) {
+        //get the vector from the center to the coordinate
+        double tempX = x - calculateCenterX();
+        double tempY = y - calculateCenterY();
+
+        //scale it with the scalar
+        tempX *= scalar;
+        tempY *= scalar;
+
+        //add the new vector to the center
+        tempX += calculateCenterX();
+        tempY += calculateCenterY();
+
+        return new double[]{tempX, tempY};
     }
 
     @Override
