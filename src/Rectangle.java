@@ -1,6 +1,6 @@
 public class Rectangle extends Shape {
     /***
-     * upperleft corner of the rectangle
+     * upper-left corner of the rectangle
      */
     public double x,y;
 
@@ -75,6 +75,26 @@ public class Rectangle extends Shape {
 
     @Override
     public boolean intersects(Shape shape1) {
+        return false;
+    }
+
+    @Override
+    public boolean intersects(Rectangle shape1) {
+        if(this.x+width > shape1.x && this.x < shape1.x+shape1.width){
+            if(this.y+height > shape1.y && this.y < shape1.y+shape1.height){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean intersects(Triangle shape1) {
+        return false;
+    }
+
+    @Override
+    public boolean intersects(Circle shape1) {
         return false;
     }
 

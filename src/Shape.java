@@ -31,8 +31,20 @@ abstract class Shape {
     public void rotate(int unitDegree){}
 
     public abstract boolean intersects (Shape shape1);
+    public abstract boolean intersects (Rectangle shape1);
+    public abstract boolean intersects (Triangle shape1);
+    public abstract boolean intersects (Circle shape1);
 
+    /**
+     * Distance from one shape to another
+     * @param shape1 any given shape
+     * @return returns the distance as a double
+     */
     public double distanceTo(Shape shape1){return Math.sqrt(Math.pow(shape1.calculateCenterX()- calculateCenterX(),2)+Math.pow(shape1.calculateCenterY()- calculateCenterY(),2));}
+
+    public double distanceTo(double x, double y){return Math.sqrt(Math.pow(x- calculateCenterX(),2)+Math.pow(y- calculateCenterY(),2));}
+
+
 
     public abstract boolean containsPoint(double x, double y);
 

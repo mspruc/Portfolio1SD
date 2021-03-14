@@ -48,11 +48,26 @@ public class Circle extends Shape {
 
     @Override
     public void scaleShape(double scalar) {
-
+        radius *= scalar;
     }
 
     @Override
     public boolean intersects(Shape shape1) {
+        return false;
+    }
+
+    @Override
+    public boolean intersects(Rectangle shape1) {
+        return false;
+    }
+
+    @Override
+    public boolean intersects(Triangle shape1) {
+        return false;
+    }
+
+    @Override
+    public boolean intersects(Circle shape1) {
         return false;
     }
 

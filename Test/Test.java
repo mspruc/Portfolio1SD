@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.css.Rect;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,6 +12,9 @@ class ShapeTests {
         assertEquals(0,rectangle.calculateCenterX());
         assertEquals(0,rectangle.calculateCenterY());
 
+        //distance to point test
+        assertEquals(rectangle.distanceTo(0,3),3);
+
         //contains testst :)
         Rectangle rectangle1 = new Rectangle(0,0,5,5);
         assertTrue(rectangle1.containsPoint(4.99,4.99));
@@ -18,10 +22,21 @@ class ShapeTests {
         assertTrue(rectangle1.containsPoint(4.99,0.1));
         assertTrue(rectangle1.containsPoint(0.1,0.1));
 
+        //distance to shape test
+        Rectangle rectDist = new Rectangle(0,0,0,2);
+        assertEquals(rectangle.distanceTo(rectDist),1);
+
         //scale circumference tests
         double tempCirc = rectangle1.getCircumference();
         rectangle1.scaleShape(2);
         assertEquals(tempCirc, rectangle1.getCircumference()/2);
+
+        //rectangle intersect
+        Rectangle rectangle2 = new Rectangle(0,0,2,4);
+        Rectangle rectangle3 = new Rectangle(1,1,2,4);
+        assertTrue(rectangle2.intersects(rectangle3));
+        Rectangle rectangle4 = new Rectangle(2,4,2,4);
+        assertFalse(rectangle4.intersects(rectangle2));
 
     }
 
@@ -37,7 +52,7 @@ class ShapeTests {
         assertEquals(3,circle1.calculateCenterX());
         assertEquals(3,circle1.calculateCenterY());
 
-        //circle distance to eachother
+        //circle distance to each other
         circle1.translate(0,-3);
         assertEquals(circle.distanceTo(circle1),3);
 

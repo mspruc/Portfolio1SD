@@ -91,6 +91,21 @@ public class Triangle extends Shape{
         return false;
     }
 
+    @Override
+    public boolean intersects(Rectangle shape1) {
+        return false;
+    }
+
+    @Override
+    public boolean intersects(Triangle shape1) {
+        return false;
+    }
+
+    @Override
+    public boolean intersects(Circle shape1) {
+        return false;
+    }
+
     private double[] scalePoint(double scalar, double x, double y) {
         //get the vector from the center to the coordinate
         double tempX = x - calculateCenterX();
